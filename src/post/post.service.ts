@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { PostEntity } from './post.entity'
 import { Repository } from 'typeorm'
-import { PostDto } from './post.dto'
+import { PostDto } from './dto/post.dto'
 import { LikeEntity } from './like.entity'
+import { PostEntity } from './post.entity'
 
 @Injectable()
 export class PostService {
@@ -47,7 +47,15 @@ export class PostService {
 	}
 
 	async getAll(limit?: number) {
-		const posts = await this.postRepository.find({ take: limit })
+		const posts = await this.postRepository.find({
+			take: limit,
+			relations: {
+				user: true,
+				comments: {
+					user: true
+				}
+			}
+		})
 
 		return posts
 	}

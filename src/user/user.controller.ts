@@ -1,8 +1,21 @@
-import { Body, Controller, Get, Param, Query } from '@nestjs/common'
-import { Delete, HttpCode, Patch, Put } from '@nestjs/common/decorators'
+import {
+	Body,
+	Controller,
+	Get,
+	Param,
+	Query,
+	ValidationPipe
+} from '@nestjs/common'
+import {
+	Delete,
+	HttpCode,
+	Patch,
+	Put,
+	UsePipes
+} from '@nestjs/common/decorators'
 import { Auth } from 'src/auth/decorators/auth.decorator'
-import { CurrentUser } from './user.decorator'
-import { UserDto } from './user.dto'
+import { CurrentUser } from './decorators/user.decorator'
+import { UserDto } from './dto/user.dto'
 import { UserService } from './user.service'
 
 @Controller('user')
@@ -27,6 +40,7 @@ export class UserController {
 		return this.userService.byId(id)
 	}
 
+	@UsePipes(new ValidationPipe())
 	@Put('profile')
 	@Auth()
 	@HttpCode(200)

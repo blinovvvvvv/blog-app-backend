@@ -6,11 +6,11 @@ import {
 import { JwtService } from '@nestjs/jwt/dist/jwt.service'
 import { InjectRepository } from '@nestjs/typeorm'
 import { compare, genSalt, hash } from 'bcryptjs'
+import { UserDto } from 'src/user/dto/user.dto'
 import { UserEntity } from 'src/user/user.entity'
 import { Repository } from 'typeorm'
 import { AuthDto } from './dto/auth.dto'
 import { RefreshTokenDto } from './dto/refresh-token.dto'
-import { UserDto } from 'src/user/user.dto'
 
 @Injectable()
 export class AuthService {
@@ -36,7 +36,6 @@ export class AuthService {
 			phoneNumber: dto.phoneNumber,
 			password: await hash(dto.password, salt)
 		})
-		
 
 		const user = await this.userRepository.save(newUser)
 

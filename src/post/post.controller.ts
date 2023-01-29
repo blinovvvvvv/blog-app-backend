@@ -1,22 +1,24 @@
-import { Controller } from '@nestjs/common'
-import { PostService } from './post.service'
+import { Controller, ValidationPipe } from '@nestjs/common'
 import {
 	Body,
+	Delete,
+	Get,
 	HttpCode,
 	Param,
 	Post,
-	Delete,
-	Get,
-	Query
+	Query,
+	UsePipes
 } from '@nestjs/common/decorators'
 import { Auth } from 'src/auth/decorators/auth.decorator'
-import { CurrentUser } from 'src/user/user.decorator'
-import { PostDto } from './post.dto'
+import { CurrentUser } from 'src/user/decorators/user.decorator'
+import { PostDto } from './dto/post.dto'
+import { PostService } from './post.service'
 
 @Controller('post')
 export class PostController {
 	constructor(private readonly postService: PostService) {}
 
+	@UsePipes(new ValidationPipe())
 	@Post('create')
 	@HttpCode(200)
 	@Auth()

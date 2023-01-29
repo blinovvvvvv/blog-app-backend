@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { UserEntity } from './user.entity'
-import { ILike, Repository } from 'typeorm'
-import { UserDto } from './user.dto'
 import {
 	BadRequestException,
 	NotFoundException
 } from '@nestjs/common/exceptions'
+import { InjectRepository } from '@nestjs/typeorm'
 import { genSalt, hash } from 'bcryptjs'
+import { ILike, Repository } from 'typeorm'
+import { UserDto } from './dto/user.dto'
 import { SubscriptionEntity } from './subscription.entity'
+import { UserEntity } from './user.entity'
 
 @Injectable()
 export class UserService {
