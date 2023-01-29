@@ -2,6 +2,7 @@ import { CommentEntity } from 'src/comment/comment.entity'
 import { UserEntity } from 'src/user/user.entity'
 import { Base } from 'src/utils/base'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
+import { LikeEntity } from './like.entity'
 
 @Entity('Post')
 export class PostEntity extends Base {
@@ -11,8 +12,8 @@ export class PostEntity extends Base {
 	@Column({ default: '', name: 'image_path' })
 	imagePath?: string
 
-	@Column({ default: 0 })
-	likes?: number
+	@OneToMany(() => LikeEntity, like => like.toPost, {cascade: true})
+	likes?: LikeEntity[]
 
 	@ManyToOne(() => UserEntity, user => user.posts)
 	@JoinColumn({ name: 'user_id' })

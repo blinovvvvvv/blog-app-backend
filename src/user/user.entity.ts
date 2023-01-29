@@ -3,6 +3,7 @@ import { Base } from 'src/utils/base'
 import { Column, Entity, OneToMany } from 'typeorm'
 import { SubscriptionEntity } from './subscription.entity'
 import { PostEntity } from 'src/post/post.entity'
+import { LikeEntity } from 'src/post/like.entity'
 
 @Entity('User')
 export class UserEntity extends Base {
@@ -42,6 +43,9 @@ export class UserEntity extends Base {
 		cascade: true
 	})
 	posts: PostEntity[]
+
+	@OneToMany(() => PostEntity, post => post.user)
+	likes?: PostEntity[]
 
 	@OneToMany(() => SubscriptionEntity, sub => sub.toUser)
 	subscribers: SubscriptionEntity[]

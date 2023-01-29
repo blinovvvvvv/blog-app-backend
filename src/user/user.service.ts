@@ -38,8 +38,13 @@ export class UserService {
 			where: { id },
 			relations: {
 				posts: true,
-				subscribers: true,
-				subscriptions: true
+				subscribers: {
+					fromUser: true
+				},
+				subscriptions: {
+					toUser: true
+				},
+				likes: true
 			},
 			select: [
 				'avatarPath',

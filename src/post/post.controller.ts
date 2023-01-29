@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common'
 import { PostService } from './post.service'
-import { Body, HttpCode, Post } from '@nestjs/common/decorators'
+import { Body, HttpCode, Param, Post } from '@nestjs/common/decorators'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { CurrentUser } from 'src/user/user.decorator'
 import { PostDto } from './post.dto'
@@ -14,5 +14,15 @@ export class PostController {
 	@Auth()
 	async createPost(@CurrentUser('id') id: number, @Body() dto: PostDto) {
 		return this.postService.createPost(id, dto)
+	}
+
+	@Post('like/:postId')
+	@HttpCode(200)
+	@Auth()
+	async likePost(
+		@CurrentUser('id') id: number,
+		@Param('postId') postId: number
+	) {
+		return this.postService.likePost(id, postId)
 	}
 }
