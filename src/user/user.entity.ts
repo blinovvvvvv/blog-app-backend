@@ -33,10 +33,14 @@ export class UserEntity extends Base {
 	@Column({ default: 0, name: 'subscribers_count' })
 	subscribersCount: number
 
-	@OneToMany(() => CommentEntity, comment => comment.user)
+	@OneToMany(() => CommentEntity, comment => comment.user, {
+		cascade: true
+	})
 	comments: CommentEntity[]
 
-	@OneToMany(() => PostEntity, post => post.user)
+	@OneToMany(() => PostEntity, post => post.user, {
+		cascade: true
+	})
 	posts: PostEntity[]
 
 	@OneToMany(() => SubscriptionEntity, sub => sub.toUser)

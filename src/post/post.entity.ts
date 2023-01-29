@@ -18,6 +18,8 @@ export class PostEntity extends Base {
 	@JoinColumn({ name: 'user_id' })
 	user: UserEntity
 
-	@OneToMany(() => CommentEntity, comment => comment.post)
+	@OneToMany(() => CommentEntity, comment => comment.post, {
+		cascade: true
+	})
 	comments: CommentEntity[]
 }
