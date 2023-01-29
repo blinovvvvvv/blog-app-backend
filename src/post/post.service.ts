@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { PostEntity } from './post.entity'
 import { Repository } from 'typeorm'
@@ -40,5 +40,15 @@ export class PostService {
 
 		await this.likeRepository.delete(data)
 		return false
+	}
+
+	async deletePost(id: number) {
+		return this.postRepository.delete({ id })
+	}
+
+	async getAll(limit?: number) {
+		const posts = await this.postRepository.find({ take: limit })
+
+		return posts
 	}
 }

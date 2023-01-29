@@ -44,7 +44,9 @@ export class UserService {
 				subscriptions: {
 					toUser: true
 				},
-				likes: true
+				likes: {
+					toPost: true
+				}
 			},
 			select: [
 				'avatarPath',

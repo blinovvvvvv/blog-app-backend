@@ -12,15 +12,13 @@ export class PostEntity extends Base {
 	@Column({ default: '', name: 'image_path' })
 	imagePath?: string
 
-	@OneToMany(() => LikeEntity, like => like.toPost, {cascade: true})
-	likes?: LikeEntity[]
+	@OneToMany(() => LikeEntity, like => like.toPost, { cascade: true })
+	likes: LikeEntity[]
 
 	@ManyToOne(() => UserEntity, user => user.posts)
 	@JoinColumn({ name: 'user_id' })
 	user: UserEntity
 
-	@OneToMany(() => CommentEntity, comment => comment.post, {
-		cascade: true
-	})
+	@OneToMany(() => CommentEntity, comment => comment.post, { cascade: true })
 	comments: CommentEntity[]
 }

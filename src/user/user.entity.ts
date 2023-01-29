@@ -39,13 +39,11 @@ export class UserEntity extends Base {
 	})
 	comments: CommentEntity[]
 
-	@OneToMany(() => PostEntity, post => post.user, {
-		cascade: true
-	})
+	@OneToMany(() => PostEntity, post => post.user, { cascade: true })
 	posts: PostEntity[]
 
-	@OneToMany(() => PostEntity, post => post.user)
-	likes?: PostEntity[]
+	@OneToMany(() => LikeEntity, like => like.toPost, { cascade: true })
+	likes?: LikeEntity[]
 
 	@OneToMany(() => SubscriptionEntity, sub => sub.toUser)
 	subscribers: SubscriptionEntity[]

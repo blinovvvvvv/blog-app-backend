@@ -1,6 +1,14 @@
 import { Controller } from '@nestjs/common'
 import { PostService } from './post.service'
-import { Body, HttpCode, Param, Post } from '@nestjs/common/decorators'
+import {
+	Body,
+	HttpCode,
+	Param,
+	Post,
+	Delete,
+	Get,
+	Query
+} from '@nestjs/common/decorators'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { CurrentUser } from 'src/user/user.decorator'
 import { PostDto } from './post.dto'
@@ -24,5 +32,17 @@ export class PostController {
 		@Param('postId') postId: number
 	) {
 		return this.postService.likePost(id, postId)
+	}
+
+	@Delete('delete/:id')
+	@Auth('admin')
+	async deletePost(@Param('id') id: number) {
+		return this.postService.deletePost(id)
+	}
+
+	@Get()
+	@Auth()
+	async getPosts(@Query('limit') limit?: number) {
+		return this.postService.getAll(limit)
 	}
 }
